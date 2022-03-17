@@ -1,4 +1,4 @@
-##include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -31,7 +31,7 @@ ATR* alloue_arbre(char lettre){
     return arbre;
 }
 
-void liberer_ATR(ATR * A) {
+void liberer_ATR(ATR* A) {
     if (!A) {
         return;
     }
@@ -45,79 +45,6 @@ void liberer_ATR(ATR * A) {
         liberer_ATR(A->fg);
     }
     free(A);
-}
-
-
-void ajouter_branche(ATR** A, char* mot) {
-    if ((*A = alloue_arbre(mot[0]))) {
-        if (mot[0] != '\0') {
-            ajouter_branche(&((*A)->fils), mot + 1);
-        }
-    }
-}
-
-int inserer_dans_ATR(ATR* A, char* mot) {
-    if (!A) {
-        ajouter_branche(&A, mot);
-    }
-    if (A->c == '\0' && * mot != '\0') {
-        return inserer_dans_ATR(A->fils, mot);
-    } else if (* mot == '\0') {
-        A->fils = alloue_arbre('\0');
-    } else if (A->c == * mot) {
-        return inserer_dans_ATR(A->fils, mot + 1);
-    } else if (A->c < * mot) {
-        return inserer_dans_ATR(A->fd, mot);
-    } else if (A->c > * mot) {
-        return inserer_dans_ATR(A->fg, mot);
-    }
-}
-
-
-
-int recherche(ATR* A, char* mot) {
-    if (!A) {return 0;}
-    if (* mot == '\0') {return 1;}
-    if (* mot == A->c) {return recherche(A->fils, mot + 1);}
-    if (A->c == '\0') {return recherche(A->fils, mot);}
-    if (* mot < A->c) {return recherche(A->fg, mot);}
-    if (* mot > A->c) {return recherche(A->fd, mot);}
-    return 0;
-}
-
-void suppression_aux(ATR* A, ATR* tmp, char* mot, char buffer[], int position) {
-    if (A) {
-        buffer[position] = A->c;
-        if (A->c == '\0' && strcmp(buffer, mot)) {
-            inserer_dans_ATR(tmp, buffer);
-            position--;
-        } else if (A->c == '\0') {
-            position--;
-        }
-
-        if (A->fils) {
-            suppression_aux(A->fils, tmp, mot, buffer, position + 1);
-        }
-
-        if (A->fg) {
-            suppression_aux(A->fg, tmp, mot, buffer, position);
-        }
-
-        if (A->fd) {
-            suppression_aux(A->fd, tmp, mot, buffer, position);
-        }
-    }
-}
-
-void supprimer_dans_ATR(ATR * A, char * mot) {
-
-    if (!recherche(A, mot)) {return;}
-
-    char buffer[MAX_LETTRES];
-    int position = 0;
-    ATR* tmp = NULL;
-    suppression_aux(A, tmp, mot, buffer, position);
-    A = tmp;
 }
 
 void affiche_aux(ATR* A, char buffer[], int position) {
@@ -148,11 +75,51 @@ void afficher_ATR(ATR A) {
     affiche_aux(&A, buffer, position);
 }
 
+int recherche(ATR* A, char* mot) {
+    if (!A) {return 0;}
+    if (* mot == '\0') {return 1;}
+    if (* mot == A->c) {return recherche(A->fils, mot + 1);}
+    if (A->c == '\0') {return recherche(A->fils, mot);}
+    if (* mot < A->c) {return recherche(A->fg, mot);}
+    if (* mot > A->c) {return recherche(A->fd, mot);}
+    return 0;
+}
+
+ATR* ajoute_branche(ATR* A, char* mot) {
+    A = alloue_arbre(mot[0]);
+    if (mot[0] == '\0') {
+        return A;
+    }
+    return ajoute_branche(A, mot +1);
+}
+
+int inserer_dans_ATR(ATR* A, char* mot) {
+    if (!A){
+        A = ajoute_branche(A, mot);
+        if (A) {return 1;}
+        return 0;
+    }
+    if (A->c == '\0' && mot[0] != '\0') {
+        return inserer_dans_ATR(A->fd, mot);
+    }
+    if (mot[0] == A->c) {
+        /* le cas ou les mots commencent de la meme manière */
+        return inserer_dans_ATR(A->fils, mot + 1);
+    }
+    if (mot[0] < A->c) {
+        /* le cas ou le mot commence avec une lettre plus petite */
+        return inserer_dans_ATR(A->fg, mot);
+    }
+    /* le cas ou le mot commence avec une lettre plus grande */
+    return inserer_dans_ATR(A->fd, mot);
+}
+
+
+
 
 
 int main() {
-    ATR* A;
-    char a = 'l';
+    ATR* a = NULL;
     /*
     A = creer_ATR_vide();
     printf("fils : %p\n", A.fils);
@@ -163,13 +130,26 @@ int main() {
     printf("fils : %p\n", A->fils);
     printf("fg : %p\n", A->fg);
     printf("fd : %p\n", A->fd);
-    */
     inserer_dans_ATR(A, "pouet");
     printf("%c\n", A->fils->c);
     //afficher_ATR(*A);
+    */
+    
+    a = alloue_arbre('l');
+    a->fils = alloue_arbre('e');
+    a->fils->fils = alloue_arbre('\0');
 
+    a->fils->fils->fils = alloue_arbre('s');
+    a->fils->fils->fils->fils = alloue_arbre('\0');
 
+    a->fils->fils->fils->fd = alloue_arbre('u');
+    a->fils->fils->fils->fd->fils = alloue_arbre('r');
+    a->fils->fils->fils->fd->fils->fils = alloue_arbre('\0');
 
-
+    afficher_ATR(*a);
+    inserer_dans_ATR(a, "la");
+    printf("\n");
+    afficher_ATR(*a);
+    
     return 0;
 }
