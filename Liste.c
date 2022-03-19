@@ -47,3 +47,33 @@ void afficher_liste(Liste L) {
         courant = courant->next_cell;
     }
 }
+
+Cellule* initialiser_liste(char* chaine) {
+    int i, cmpt, first;
+    char* mot = NULL;
+    Liste l = NULL;
+
+    cmpt = 0;
+    first = 0;
+    mot = (char*) malloc(sizeof(char) * (TAILLE_MOT) + 1);
+    l = NULL;
+
+    for (i = 0; i < strlen(chaine); i++) {
+        if (chaine[i] == ' ' || chaine[i] == '.') {
+            mot[cmpt] = '\0';
+            cmpt = 0;
+            if (!first) {
+                l = allouer_Cellule(mot);
+                first = 1;
+            } else {
+                inserer_en_tete(&l, mot);
+            }
+            mot = (char*) malloc(sizeof(char) * (TAILLE_MOT) + 1);
+        } else {
+            mot[cmpt] = chaine[i];
+            cmpt++;
+        }
+    }
+    return l;
+}
+
