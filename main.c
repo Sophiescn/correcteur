@@ -3,8 +3,20 @@
 
 
 int main(void) {
+    Liste l;
     ATR a;
+    char* chaine;
 
+    
+/* creer un liste a partir de a_corriger_0.txt */
+    chaine = lecture_fichier("a_corriger_0.txt");
+    
+    l = initialiser_liste(chaine);
+    afficher_liste(l);
+    
+    
+    
+    
     a = creer_ATR_vide();
  
     a = alloue_arbre('l');
