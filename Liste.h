@@ -16,5 +16,6 @@
     int inserer_en_tete(Liste* L, char * mot);
     void liberer_liste(Liste* L);
     void afficher_liste(Liste L);
+    Cellule* initialiser_liste(char* chaine);
 
 #endif
