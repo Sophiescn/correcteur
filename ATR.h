@@ -1,6 +1,8 @@
 #ifndef __ATR__
 #define __ATR__
 
+    #define TAILLE_MOT 64
+
     typedef struct noeud {
         char c;
         struct noeud* fg;
@@ -18,5 +20,6 @@
     int inserer_dans_ATR(ATR* A, char* mot);
     void suppression_aux(ATR A, ATR* tmp, char* mot, char buffer[], int position);
     void supprimer_dans_ATR(ATR* A, char* mot);
+    Noeud* initialiser_ATR(char* chaine);
 
 #endif
