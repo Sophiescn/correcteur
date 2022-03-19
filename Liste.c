@@ -4,7 +4,7 @@
 
 
 Cellule * allouer_Cellule(char * mot) {
-    Cellule * cell = (Cellule*) malloc(sizeof(Cellule));
+    Cellule* cell = (Cellule*) malloc(sizeof(Cellule));
     if (!cell) {
         return NULL;
     }
@@ -13,33 +13,37 @@ Cellule * allouer_Cellule(char * mot) {
     return cell;
 }
 
-
-int inserer_en_tete(Liste * L, char * mot) {
-    // fonction de merde avec un type de merde ca marche pas 
+int inserer_en_tete(Liste* L, char * mot) {
     Cellule* cell = allouer_Cellule(mot);
     if (!cell) {return 0;}
-    cell->next_cell = *L;
-    L = &cell;
-    /*
-     while (*L) {
-        printf("%s\n", (*L)->mot);
-        L = &((*L)->next_cell);
-    }
-    */
+    cell->next_cell = * L;
+    * L = cell;
     return 1;
 }
 
-/*
-int main(){
-    char* mot = "pouet";
-    char* mot2 = "pouetpouet";
-    Liste l = allouer_Cellule(mot);
-    inserer_en_tete(&l, mot2);
+void liberer_liste(Liste* L) {
+    Cellule* courant = *L;
+    Cellule* suivant;
 
-
-   
-
-
-    return 0;
+    while (courant) {
+        suivant = courant->next_cell;
+        free(courant);
+        courant = suivant;
+    }
+    *L = NULL;
 }
-*/
+
+void afficher_liste(Liste L) {
+    Cellule* courant;
+
+    if (!L) {
+        printf("null\n");
+        return;
+    }
+
+    courant = L;
+    while (courant) {
+        printf("%s\n", courant->mot);
+        courant = courant->next_cell;
+    }
+}
