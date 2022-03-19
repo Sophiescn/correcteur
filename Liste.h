@@ -7,6 +7,8 @@
 #ifndef __Liste__
 #define __Liste__
 
+    #define TAILLE_MOT 64
+
     typedef struct cellule {
         char* mot;
         struct cellule* next_cell;
