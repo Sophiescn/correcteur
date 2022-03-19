@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "Liste.h"
 
 
@@ -76,4 +77,3 @@ Cellule* initialiser_liste(char* chaine) {
     }
     return l;
 }
-
