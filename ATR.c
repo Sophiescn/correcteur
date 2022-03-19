@@ -73,6 +73,17 @@ void afficher_ATR(ATR A) {
 
 int recherche(ATR A, char* mot) {
     if (!A) {return 0;}
+    if (mot[0] == '\0' && A->c == '\0') {return 1;}
+    if (mot[0] == A->c) {return recherche(A->fils, mot + 1);}
+    if (mot[0] < A->c) {return recherche(A->fg, mot);}
+    if (mot[0] > A->c) {return recherche(A->fd, mot);}
+    if (A->c == '\0') {return recherche(A->fils, mot + 1);}
+    return 0;
+}
+
+/*
+int recherche(ATR A, char* mot) {
+    if (!A) {return 0;}
     if (* mot == '\0') {return 1;}
     if (* mot == A->c) {return recherche(A->fils, mot + 1);}
     if (A->c == '\0') {return recherche(A->fils, mot);}
@@ -80,6 +91,7 @@ int recherche(ATR A, char* mot) {
     if (* mot > A->c) {return recherche(A->fd, mot);}
     return 0;
 }
+*/
 
 void ajoute_branche(ATR* A, char* mot) {
     if ((*A = alloue_arbre(mot[0]))) {
@@ -144,4 +156,28 @@ void supprimer_dans_ATR(ATR* A, char* mot) {
     suppression_aux(*A, &tmp, mot, buffer, position);
     *A = tmp;
     
+}
+
+Noeud* initialiser_ATR(char* chaine) {
+    int i, cmpt;
+    char* mot = NULL;
+    ATR a;
+
+    a = creer_ATR_vide();
+
+    cmpt = 0;
+    mot = (char*) malloc(sizeof(char) * (TAILLE_MOT) + 1);
+
+    for (i = 0; i < strlen(chaine); i++) {
+        if (chaine[i] == '\n') {
+            mot[cmpt] = '\0';
+            cmpt = 0;
+            inserer_dans_ATR(&a, mot);
+            mot = (char*) malloc(sizeof(char) * (TAILLE_MOT) + 1);
+        } else {
+            mot[cmpt] = chaine[i];
+            cmpt++;
+        }
+    }
+    return a;
 }
