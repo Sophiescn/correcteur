@@ -1,22 +1,48 @@
 #include "ATR.h"
+#include "ouverture.h"
+#include "Liste.h"
+#include "correcteur.h"
 #include <stdio.h>
 
 
 int main(void) {
-    Liste l;
     ATR a;
+    Liste l;
+    Liste erreurs;
+    char* dico;
+    char* liste;
+
+    dico = lecture_fichier("dico_1.dico");
+    liste = lecture_fichier("a_corriger_0.txt");
+
+    a = initialiser_ATR(dico);
+    l = initialiser_liste(liste);
+
+    erreurs = correction(l, a);
+
+    afficher_liste(erreurs);
+
+
+
+    /*
+    LISTE
+
+
+    Liste l;
     char* chaine;
 
-    
-/* creer un liste a partir de a_corriger_0.txt */
     chaine = lecture_fichier("a_corriger_0.txt");
     
     l = initialiser_liste(chaine);
     afficher_liste(l);
+    */
     
-    
-    
-    
+
+    /*
+    ATR
+
+
+    ATR a;
     a = creer_ATR_vide();
  
     a = alloue_arbre('l');
@@ -24,33 +50,21 @@ int main(void) {
     a->fils->fils = alloue_arbre('\0');
     afficher_ATR(a);
 
-/* inserer */
-
     inserer_dans_ATR(&a, "les");
     inserer_dans_ATR(&a, "lese");
     printf("\n");
     afficher_ATR(a);
     printf("\n");
 
-/* supprimer */
-
     supprimer_dans_ATR(&a, "lese");
     afficher_ATR(a);
-
-
-/* liberer */
 
     liberer_ATR(&a);
     printf("\n");
     inserer_dans_ATR(&a, "final");
     inserer_dans_ATR(&a, "oksuper");
     afficher_ATR(a);
-
-
-    /*
-    printf("%d %d %d\n", recherche(a, "le"), recherche(a, "les"), recherche(a, "de"));
     */
-
 
     return 0;
 }
