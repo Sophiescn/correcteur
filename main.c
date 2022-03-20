@@ -7,10 +7,17 @@
 
 int main(void) {
     ATR a;
-    Liste l;
-    Liste erreurs;
-    char* dico;
-    char* liste;
+    char* dico, *liste;
+    char* source_1, *source_2;
+    int res;
+  
+    source_1 = argv[1];
+    source_2 = argv[2];
+    if (!(res = arguments_valides(argc, argv))) {
+        return 0;
+    }
+
+    ordonne_fichiers(res, source_1, source_2);
 
     dico = lecture_fichier("dico_1.dico");
     liste = lecture_fichier("a_corriger_0.txt");
@@ -20,51 +27,10 @@ int main(void) {
 
     erreurs = correction(l, a);
 
-    afficher_liste(erreurs);
-
-
-
-    /*
-    LISTE
-
-
-    Liste l;
-    char* chaine;
-
-    chaine = lecture_fichier("a_corriger_0.txt");
-    
-    l = initialiser_liste(chaine);
-    afficher_liste(l);
-    */
-    
-
-    /*
-    ATR
-
-
-    ATR a;
-    a = creer_ATR_vide();
- 
-    a = alloue_arbre('l');
-    a->fils = alloue_arbre('e');
-    a->fils->fils = alloue_arbre('\0');
-    afficher_ATR(a);
-
-    inserer_dans_ATR(&a, "les");
-    inserer_dans_ATR(&a, "lese");
-    printf("\n");
-    afficher_ATR(a);
-    printf("\n");
-
-    supprimer_dans_ATR(&a, "lese");
-    afficher_ATR(a);
-
-    liberer_ATR(&a);
-    printf("\n");
-    inserer_dans_ATR(&a, "final");
-    inserer_dans_ATR(&a, "oksuper");
-    afficher_ATR(a);
-    */
-
+    printf("Mot(s) mal orthographié(s) :\n");
+    if (erreurs) {
+        afficher_liste(erreurs);
+    }
+    printf("aucun\n");
     return 0;
 }
