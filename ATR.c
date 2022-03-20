@@ -23,7 +23,6 @@ Noeud* alloue_arbre(char lettre) {
     return noeud;
 }
 
-
 void liberer_ATR(ATR* A) {
     if (!(*A)) {
         return;
@@ -40,8 +39,6 @@ void liberer_ATR(ATR* A) {
     free(*A);
     *A = creer_ATR_vide();
 }
-
-
 
 void affiche_aux(ATR A, char buffer[], int position) {
     if (A) {
@@ -74,24 +71,12 @@ void afficher_ATR(ATR A) {
 int recherche(ATR A, char* mot) {
     if (!A) {return 0;}
     if (mot[0] == '\0' && A->c == '\0') {return 1;}
+    if (A->c == '\0') {return recherche(A->fils, mot);}
     if (mot[0] == A->c) {return recherche(A->fils, mot + 1);}
     if (mot[0] < A->c) {return recherche(A->fg, mot);}
     if (mot[0] > A->c) {return recherche(A->fd, mot);}
-    if (A->c == '\0') {return recherche(A->fils, mot + 1);}
     return 0;
 }
-
-/*
-int recherche(ATR A, char* mot) {
-    if (!A) {return 0;}
-    if (* mot == '\0') {return 1;}
-    if (* mot == A->c) {return recherche(A->fils, mot + 1);}
-    if (A->c == '\0') {return recherche(A->fils, mot);}
-    if (* mot < A->c) {return recherche(A->fg, mot);}
-    if (* mot > A->c) {return recherche(A->fd, mot);}
-    return 0;
-}
-*/
 
 void ajoute_branche(ATR* A, char* mot) {
     if ((*A = alloue_arbre(mot[0]))) {
