@@ -1,5 +1,9 @@
 /* correcteur.h */
 
+/* Auteur : Quentin Benesby Sophie Cousson
+* Creation : 05-03-2022
+* Modification :  20-03-2022*/
+
 #ifndef __correcteur__
 #define __correcteur__
 
