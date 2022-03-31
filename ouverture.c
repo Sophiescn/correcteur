@@ -1,12 +1,15 @@
+/* Auteur : Quentin Benesby Sophie Cousson
+* Creation : 05-03-2022
+* Modification :  20-03-2022*/
+
 #include "ouverture.h"
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 int fichier_valide(char* fichier) {
     FILE* f;
     f = fopen(fichier, "r");
-    if (f){
+    if (f) {
         fclose(f);
         return 1;
     }
@@ -24,9 +27,10 @@ int est_dictionnaire(char* chaine) {
 }
 
 int arguments_valides (int argc, char* argv[]) {
-    if (argc != 3){
+    if (argc != 3) {
         return 0;
     }
+
     if (!fichier_valide(argv[1]) || !fichier_valide(argv[2])) {
         return 0;
     }
@@ -41,15 +45,6 @@ int arguments_valides (int argc, char* argv[]) {
         return 2;
     }
     return 0;
-}
-
-void ordonne_fichiers(int res, char* source_1, char* source_2) {
-    char* temp;
-    if (res == 1) {
-        temp = source_1;
-        source_1 = source_2;
-        source_2 = temp;
-    }
 }
 
 int taille_fichier(FILE* fichier) {
