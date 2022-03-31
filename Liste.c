@@ -1,3 +1,7 @@
+/* Auteur : Quentin Benesby Sophie Cousson
+* Creation : 05-03-2022
+* Modification :  20-03-2022*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -38,7 +42,6 @@ void afficher_liste(Liste L) {
     Cellule* courant;
 
     if (!L) {
-        printf("null\n");
         return;
     }
 
@@ -50,25 +53,19 @@ void afficher_liste(Liste L) {
 }
 
 Cellule* initialiser_liste(char* chaine) {
-    int i, cmpt, first;
+    int i, cmpt;
     char* mot = NULL;
     Liste l = NULL;
 
     cmpt = 0;
-    first = 0;
     mot = (char*) malloc(sizeof(char) * (TAILLE_MOT) + 1);
     l = NULL;
 
     for (i = 0; i < strlen(chaine); i++) {
-        if (chaine[i] == ' ' || chaine[i] == '.') {
+        if (chaine[i] == ' ' || chaine[i] == '\0') {
             mot[cmpt] = '\0';
             cmpt = 0;
-            if (!first) {
-                l = allouer_Cellule(mot);
-                first = 1;
-            } else {
-                inserer_en_tete(&l, mot);
-            }
+            inserer_en_tete(&l, mot);
             mot = (char*) malloc(sizeof(char) * (TAILLE_MOT) + 1);
         } else {
             mot[cmpt] = chaine[i];
