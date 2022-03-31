@@ -1,3 +1,7 @@
+/* Auteur : Quentin Benesby Sophie Cousson
+* Creation : 05-03-2022
+* Modification :  20-03-2022*/
+
 #include "correcteur.h"
 #include <stdio.h>
 
