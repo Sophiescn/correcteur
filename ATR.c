@@ -1,3 +1,7 @@
+/* Auteur : Quentin Benesby Sophie Cousson
+* Creation : 05-03-2022
+* Modification :  20-03-2022*/
+
 #include "ATR.h"
 #include <stdlib.h>
 #include <stdio.h>
