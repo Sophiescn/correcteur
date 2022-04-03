@@ -3,7 +3,10 @@
 * Modification :  20-03-2022*/
 
 #include "correcteur.h"
+#include "levenshtein.h"
 #include <stdio.h>
+
+#define INF 999999999
 
 Cellule* correction(Cellule* liste, Noeud* dico) {
     Liste erreurs = NULL;
@@ -19,4 +22,32 @@ Cellule* correction(Cellule* liste, Noeud* dico) {
     }
 
     return erreurs;
+}
+
+Cellule* force_brute(char* mot, Liste dico_liste) {
+    Liste correction = NULL;
+    Liste courant;
+    int d, dmin;
+
+    dmin = INF;
+
+    courant = dico_liste;
+
+    while (courant) {
+
+        d = levenshtein(mot, courant->mot);
+
+        if (d <= dmin) {
+            if (d < dmin) {
+                dmin = d;
+                liberer_liste(&correction);
+            }
+
+            inserer_en_tete(&correction, courant->mot);
+        }
+
+        courant = courant->next_cell;
+    }
+
+    return correction;    
 }
