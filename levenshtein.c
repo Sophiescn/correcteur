@@ -1,3 +1,7 @@
+/* Auteur : Quentin Benesby Sophie Cousson
+* Creation : 21-03-2022
+* Modification :  03-04-2022*/
+
 #include "levenshtein.h"
 #include <stdio.h>
 #include <string.h>
