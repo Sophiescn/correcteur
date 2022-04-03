@@ -6,6 +6,7 @@
 #include "ouverture.h"
 #include "Liste.h"
 #include "correcteur.h"
+#include "levenshtein.h"
 #include <stdio.h>
 
 
@@ -20,7 +21,6 @@ int main(int argc, char* argv[]) {
     source_1 = argv[1];
     source_2 = argv[2];
 
-
     if (!(res = arguments_valides(argc, argv))) {
         return 0;
     }
@@ -32,7 +32,6 @@ int main(int argc, char* argv[]) {
         dico = lecture_fichier(source_2);
         liste = lecture_fichier(source_1);
     }
-
 
 
     a = initialiser_ATR(dico);
