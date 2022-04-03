@@ -2,8 +2,8 @@ CC=gcc
 CFLAGS=-ansi -pedantic -Wall
 all: correcteur_0 correcteur_1
 
-correcteur_0: Liste.o ATR.o ouverture.o correcteur.o correcteur_0.o
-	$(CC) -o correcteur_0 correcteur_0.o Liste.o ATR.o ouverture.o correcteur.o
+correcteur_0: Liste.o ATR.o ouverture.o correcteur.o levenshtein.o correcteur_0.o
+	$(CC) -o correcteur_0 correcteur_0.o Liste.o ATR.o ouverture.o levenshtein.o correcteur.o
 
 correcteur_1: Liste.o ATR.o ouverture.o correcteur.o levenshtein.o correcteur_1.o
 	$(CC) -o correcteur_1 correcteur_1.o Liste.o ATR.o ouverture.o correcteur.o levenshtein.o
