@@ -1,6 +1,6 @@
 /* Auteur : Quentin Benesby Sophie Cousson
 * Creation : 05-03-2022
-* Modification :  20-03-2022*/
+* Modification :  03-04-2022*/
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -62,7 +62,7 @@ Cellule* initialiser_liste(char* chaine) {
     l = NULL;
 
     for (i = 0; i < strlen(chaine); i++) {
-        if (chaine[i] == ' ' || chaine[i] == '\0') {
+        if (chaine[i] == ' ' || chaine[i] == '\0' || chaine[i] == '\n') {
             mot[cmpt] = '\0';
             cmpt = 0;
             inserer_en_tete(&l, mot);
