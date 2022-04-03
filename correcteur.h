@@ -11,5 +11,6 @@
     #include "ATR.h"
 
     Cellule* correction(Cellule* liste, Noeud* dico);
+    Cellule* force_brute(char* mot, Liste liste_dico);
 
 #endif
