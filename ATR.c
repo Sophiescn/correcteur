@@ -91,6 +91,8 @@ void ajoute_branche(ATR* A, char* mot) {
 }
 
 int inserer_dans_ATR(ATR* A, char* mot) {
+    Noeud* temp;
+    
     if (!(*A)) {
         ajoute_branche(A, mot);
         return 1;
@@ -98,7 +100,9 @@ int inserer_dans_ATR(ATR* A, char* mot) {
     if ((*A)->c == '\0' && mot[0] != '\0') {
         return inserer_dans_ATR(&(*A)->fils, mot);
     } else if (mot[0] == '\0') {
-        (*A)->fils = alloue_arbre('\0');
+        temp = (*A);
+        (*A) = alloue_arbre('\0');
+        (*A)->fils = temp;
     } else if ((*A)->c == mot[0]) {
         return inserer_dans_ATR(&(*A)->fils, mot + 1);
     } else if ((*A)->c < mot[0]) {
