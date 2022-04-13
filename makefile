@@ -29,5 +29,8 @@ correcteur.o: correcteur.c correcteur.h ATR.h Liste.h
 levenshtein.o: levenshtein.c levenshtein.h
 	$(CC) -c levenshtein.c $(CFLAGS)
 
+arbreBK.o: ArbreBK.c ArbreBK.h
+	$(CC) -c ArbreBK.c $(CFLAGS)
+
 clean:
 	rm -f *.o
