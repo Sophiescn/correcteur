@@ -1,4 +1,3 @@
-
 #ifndef __BK__
 #define __Bk__
 
@@ -9,4 +8,6 @@
         struct noeudBK* frereD;
     } NoeudBK, * ArbreBK;
 
+    int inserer_dans_ArbreBK(ArbreBK * A, char * mot);
+    
 #endif
