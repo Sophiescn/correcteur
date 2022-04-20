@@ -12,5 +12,6 @@
 
     Cellule* correction(Cellule* liste, Noeud* dico);
     Cellule* force_brute(char* mot, Liste liste_dico);
+    Cellule* correction_BK(char* mot, ArbreBK dico);
 
 #endif
