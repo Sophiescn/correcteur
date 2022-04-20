@@ -4,6 +4,7 @@
 
 #include "correcteur.h"
 #include "levenshtein.h"
+#include "ArbreBK.h"
 #include <stdio.h>
 
 #define INF 999999999
@@ -51,3 +52,16 @@ Cellule* force_brute(char* mot, Liste dico_liste) {
 
     return correction;    
 }
+
+Cellule* correction_BK(char* mot, ArbreBK dico) {
+    Liste correction = NULL;
+    ArbreBK courant;
+    int d, dmin;
+
+    dmin = INF;
+    courant = dico;
+    while (courant) {
+        // a faire 
+    }
+}
+
