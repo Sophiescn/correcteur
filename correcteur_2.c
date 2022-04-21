@@ -51,7 +51,6 @@ int main(int argc, char* argv[]) {
     printf("%d\n", rechercher_dans_ArbreBK(a, "erreur"));
 */
     ArbreBK a;
-    Liste dico_liste;
     Liste l;
     Liste erreurs;
     Liste proposition;
@@ -79,10 +78,34 @@ int main(int argc, char* argv[]) {
     a = initialiser_BK(dico);
     l = initialiser_liste(liste);
     erreurs = correction(l, NULL, a);
+
     if (!erreurs) {
         printf("aucun\n");
         return 0;
     }
+
+    courant_erreurs = erreurs;
+
+    while (courant_erreurs) {
+        proposition = correction_BK(courant_erreurs->mot, a);
+        courant_proposition = proposition;
+
+        printf("Mot mal orthographie : %s\n", courant_erreurs->mot);
+        printf("Proposition(s) : ");
+
+        while (courant_proposition) {
+            printf("%s ", courant_proposition->mot);
+            courant_proposition = courant_proposition->next_cell;
+        }
+        printf("\n");
+        liberer_liste(&proposition);
+
+        courant_erreurs = courant_erreurs->next_cell;
+    }
+
+    liberer_liste(&l);
+    liberer_liste(&erreurs);
+    liberer_ArbreBK(&a);
 
 
 
