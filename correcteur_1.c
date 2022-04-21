@@ -7,6 +7,7 @@
 #include "Liste.h"
 #include "correcteur.h"
 #include "levenshtein.h"
+#include "ArbreBK.h"
 #include <stdio.h>
 
 
