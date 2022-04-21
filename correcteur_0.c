@@ -7,6 +7,7 @@
 #include "Liste.h"
 #include "correcteur.h"
 #include "levenshtein.h"
+#include "ArbreBK.h"
 #include <stdio.h>
 
 
@@ -37,7 +38,7 @@ int main(int argc, char* argv[]) {
     a = initialiser_ATR(dico);
     l = initialiser_liste(liste);
 
-    erreurs = correction(l, a);
+    erreurs = correction(l, a, NULL);
 
     printf("Mot(s) mal orthographie(s) :\n");
     if (erreurs) {
