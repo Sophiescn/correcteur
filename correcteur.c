@@ -9,16 +9,31 @@
 
 #define INF 999999999
 
-Cellule* correction(Cellule* liste, Noeud* dico) {
+Cellule* correction(Cellule* liste, Noeud* dico, ArbreBK dicoB) {
     Liste erreurs = NULL;
     Liste actuel;
+    int version;
+    if (dico) {
+        version = 0;
+    } else if (dicoB) {
+        version = 1;
+    } 
 
     actuel = liste;
 
     while (actuel) {
-        if (!recherche(dico, actuel->mot)) {
-            inserer_en_tete(&erreurs, actuel->mot);
+        if (!version) {
+            if (recherche(dico, actuel->mot)) {
+                actuel = actuel->next_cell;
+                continue;
+            }
+        } else if (version == 1) {
+            if (rechercher_dans_ArbreBK(dico, actuel->mot)) {
+                actuel = actuel->next_cell;
+                continue;
+            }
         }
+        inserer_en_tete(&erreurs, actuel->mot);
         actuel = actuel->next_cell;
     }
 
@@ -54,14 +69,7 @@ Cellule* force_brute(char* mot, Liste dico_liste) {
 }
 
 Cellule* correction_BK(char* mot, ArbreBK dico) {
-    Liste correction = NULL;
-    ArbreBK courant;
-    int d, dmin;
-
-    dmin = INF;
-    courant = dico;
-    while (courant) {
-        // a faire 
-    }
+    
 }
+
 
