@@ -10,7 +10,7 @@
     #include "Liste.h"
     #include "ATR.h"
 
-    Cellule* correction(Cellule* liste, Noeud* dico);
+    Cellule* correction(Cellule* liste, Noeud* dico, ArbreBK dicoB);
     Cellule* force_brute(char* mot, Liste liste_dico);
     Cellule* correction_BK(char* mot, ArbreBK dico);
 
