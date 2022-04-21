@@ -4,7 +4,6 @@
 
 #include "correcteur.h"
 #include "levenshtein.h"
-#include "ArbreBK.h"
 #include <stdio.h>
 
 #define INF 999999999
@@ -28,7 +27,7 @@ Cellule* correction(Cellule* liste, Noeud* dico, ArbreBK dicoB) {
                 continue;
             }
         } else if (version == 1) {
-            if (rechercher_dans_ArbreBK(dico, actuel->mot)) {
+            if (rechercher_dans_ArbreBK(dicoB, actuel->mot)) {
                 actuel = actuel->next_cell;
                 continue;
             }
@@ -68,8 +67,50 @@ Cellule* force_brute(char* mot, Liste dico_liste) {
     return correction;    
 }
 
-Cellule* correction_BK(char* mot, ArbreBK dico) {
-    
+ArbreBK correction_BK_aux(char* mot, ArbreBK a) {
+    ArbreBK courant, temp;
+    int leven;
+
+    courant = a;
+    temp = a;
+    leven = INF;
+
+    while (courant) {
+        if (leven > levenshtein(mot, courant->mot)) {
+            leven = levenshtein(mot, courant->mot);
+            temp = courant;
+        }
+
+        courant = courant->frere;
+    }
+
+    return temp;
+}
+
+Cellule* correction_BK(char* mot, ArbreBK a) {
+    Liste correction = NULL;
+    ArbreBK courant;
+    int dmin;
+
+    dmin = INF;
+
+    courant = a;
+
+    while (courant) {
+        courant = correction_BK_aux(mot, courant);
+
+        if (levenshtein(mot, courant->mot) <= dmin) {
+            if (levenshtein(mot, courant->mot) < dmin) {
+                dmin = levenshtein(mot, courant->mot);
+                liberer_liste(&correction);
+            }
+            inserer_en_tete(&correction, courant->mot);
+        }
+
+        courant = courant->fils;
+    }
+
+    return correction;
 }
 
 
