@@ -22,13 +22,12 @@ int main(int argc, char* argv[]) {
     char* source_1, *source_2;
     int res;
 
-    source_1 = argv[1];
-    source_2 = argv[2];
-
     if (!(res = arguments_valides(argc, argv))) {
         return 0;
     }
-
+    source_1 = argv[1];
+    source_2 = argv[2];
+    
     if (res == 1) {
         dico = lecture_fichier(source_1);
         liste = lecture_fichier(source_2);
@@ -43,7 +42,7 @@ int main(int argc, char* argv[]) {
     l = initialiser_liste(liste);
     dico_liste = initialiser_liste(dico);
 
-    erreurs = correction(l, a);
+    erreurs = correction(l, a, NULL);
 
     if (!erreurs) {
         printf("aucun\n");
@@ -79,3 +78,4 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
