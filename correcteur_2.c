@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
     a = initialiser_BK(dico);
     l = initialiser_liste(liste);
-    erreurs = correction(l, a);
+    erreurs = correction(l, NULL, a);
     if (!erreurs) {
         printf("aucun\n");
         return 0;
@@ -90,3 +90,4 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
